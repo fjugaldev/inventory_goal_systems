@@ -2,14 +2,16 @@
 
 namespace App\Service;
 
+use App\Event\OutOfStockEvent;
 use App\Model\InventoryModel;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * Class InventoryService
  */
-class InventoryService
+class InventoryService implements BaseService
 {
     /** @var ContainerInterface */
     protected $container;
@@ -30,7 +32,7 @@ class InventoryService
      *
      * @return array
      */
-    public function getItem(int $id): array
+    public function get(int $id): array
     {
         try {
             // Send http request to the DATA API (JSON SERVER).
@@ -78,7 +80,7 @@ class InventoryService
      *
      * @return array
      */
-    public function getList(): array
+    public function getAll(): array
     {
         try {
             // Send http request to the DATA API (JSON SERVER).
@@ -132,15 +134,9 @@ class InventoryService
      *
      * @return array
      */
-    public function addItem(\stdClass $parameters): array
+    public function add(\stdClass $parameters): array
     {
         try {
-            // TODO: This process is only for demostrative purposes, the data is from a fake api json server.
-            // We are parsing the source file (db.json) in order to append a new data to the json array.
-            $dbFile = $this->container->get('kernel')->getRootDir().'/../public/db.json';
-            $data = file_get_contents($dbFile);
-            $data = json_decode($data);
-
             $inventory = new InventoryModel();
             $inventory->setId($parameters->id);
             $inventory->setSku($parameters->sku);
@@ -149,14 +145,17 @@ class InventoryService
             $inventory->setStock($parameters->stock);
             $inventory->setExpireAt($parameters->expireAt);
 
-            array_push($data->inventory, $inventory->__toJson());
-
-            file_put_contents($dbFile, json_encode($data));
+            $responseInterface = $this->getHttp()->request(
+                '/inventory',
+                HttpService::METHOD_POST,
+                ['form_params' => $inventory->__toJson()],
+                HttpService::API_DATA
+            );
 
             // Response content.
             $response = [
                 'status' => HttpService::STATUS_200,
-                'data'   => $data->inventory,
+                'data'   => $inventory->__toJson(),
             ];
 
         } catch (\Exception $e) {
@@ -170,40 +169,94 @@ class InventoryService
         return $response;
     }
 
-    public function removeItem(int $id): array
+    /**
+     * Edits Inventory Item
+     * @param int       $id
+     * @param \stdClass $parameters
+     *
+     * @return array
+     */
+    public function edit(int $id, \stdClass $parameters): array
+    {
+        try {
+            $inventory = new InventoryModel();
+            $inventory->setId($parameters->id);
+            $inventory->setSku($parameters->sku);
+            $inventory->setName($parameters->name);
+            $inventory->setType($parameters->type);
+            $inventory->setStock($parameters->stock);
+            $inventory->setExpireAt($parameters->expireAt);
+
+            $responseInterface = $this->getHttp()->request(
+                "/inventory/{$id}",
+                HttpService::METHOD_PUT,
+                ['form_params' => $inventory->__toJson()],
+                HttpService::API_DATA
+            );
+
+            // Response content.
+            $response = [
+                'status' => HttpService::STATUS_200,
+                'data'   => $inventory->__toJson(),
+            ];
+
+        } catch (\Exception $e) {
+            // Error content
+            $response = [
+                'status' => HttpService::STATUS_500,
+                'error'  => $e->getMessage(),
+            ];
+        }
+
+        return $response;
+    }
+
+    /**
+     * Sets inventory item as out of stock (set stock to 0)
+     * @param string $name
+     *
+     * @return array
+     */
+    public function remove(string $name): array
     {
         try {
             // Send http request to the DATA API (JSON SERVER).
             /** @var ResponseInterface $responseInterface */
             $responseInterface = $this->getHttp()->request(
-                '/inventory',
+                "/inventory?name={$name}",
                 HttpService::METHOD_GET,
                 [],
                 HttpService::API_DATA
             );
-
             // Unwrap the request body contents.
-            $apiResponse = json_decode($responseInterface->getBody()->getContents());
-            // Iterates the results in order to parse items into a recipe object and push it into the data array.
-            $data = [];
-            foreach ($apiResponse as $item) {
-                // Instances a new recipe object with the item data.
-                $inventory = new InventoryModel();
-                $inventory->setId($item->id);
-                $inventory->setSku($item->sku);
-                $inventory->setName($item->name);
-                $inventory->setType($item->type);
-                $inventory->setStock($item->stock);
-                $inventory->setExpireAt($item->expireAt);
+            $item = json_decode($responseInterface->getBody()->getContents())[0];
 
-                // Push the recipe object into the data array.
-                array_push($data, $inventory->__toJson());
-            }
+            $inventory = new InventoryModel();
+            $inventory->setId($item->id);
+            $inventory->setSku($item->sku);
+            $inventory->setName($item->name);
+            $inventory->setType($item->type);
+            $inventory->setStock(0);
+            $inventory->setExpireAt($item->expireAt);
+
+            // Edit the item inventory via http request to the DATA API (JSON SERVER).
+            /** @var ResponseInterface $responseInterface */
+            $responseInterface = $this->getHttp()->request(
+                "/inventory/{$inventory->getId()}",
+                HttpService::METHOD_PUT,
+                ['form_params' => $inventory->__toJson()],
+                HttpService::API_DATA
+            );
+
+            //Dispatchs outOfStock Event
+            $dispatcher = new EventDispatcher();
+            $event = new OutOfStockEvent($inventory);
+            $dispatcher->dispatch(OutOfStockEvent::NAME, $event);
 
             // Response content.
             $response = [
                 'status' => HttpService::STATUS_200,
-                'data'   => $data,
+                'data'   => $inventory->__toJson(),
             ];
 
         } catch (\Exception $e) {

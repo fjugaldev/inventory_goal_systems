@@ -87,6 +87,14 @@
       "type": "book",
       "stock": 9663,
       "expireAt": "2019-01-19T17:34:36+00:00"
+    },
+    {
+      "id": "12",
+      "sku": "INV012",
+      "name": "Producto 012",
+      "type": "kindle",
+      "stock": "1987",
+      "expireAt": "2018-12-29T17:34:36+00:00"
     }
   ]
 }
