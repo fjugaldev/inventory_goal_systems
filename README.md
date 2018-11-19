@@ -3,6 +3,16 @@
 ## Descripción:
 El siguiente proyecto esta desarrollado utilizando el Framework Symfony en su versión más reciente (4.1).
 
+## TODO:
+1. [X] Crear proyecto en Symfony 4.
+1. [X] Configurar proyecto base en Symfony 4.
+1. [X] Implementar Fake JSON Server para datos. (***json-server***) 
+1. [X] Implementar API del Sistema.
+1. [X] Implementar Events y Subscribers para Item sacado del Inventario y Item Caducado.
+1. [X] Implemntar LOG's cuando los subscribers se ejecuten para demostrar funcionalidad de eventos.
+1. [ ] Comentar estructura del código.
+1. [ ] Test Unitarios.
+
 ## Arquitectura:
 Para la arquitectura, por temas de tiempo, utilizamos la por defecto por symfony la cual sigue el patrón MVC, yo lo llamo
 ***MVC Plus*** ya que gracias a como esta estructurado el framework, y las buenas prácticas recomendadas por
@@ -72,4 +82,4 @@ misma manera obviamente. Un ejemplo de esto es el uso de un fake api server para
 
 ## Postman Collections
 He exportado mi colección de postman con los endpoints definidos para su fácil visualización. Para descargar la colección
-[click aqui](goal-systems-api.postman_collection.json)
+[click aqui](goal-systems-api.postman_collection.json), Elegir RAW del fichero y descargar en el ordenador. Importar la colección al postman.
