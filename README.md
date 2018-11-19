@@ -1,6 +1,6 @@
 # Sistema de Inventario
 
-##Descripción
+## Descripción:
 El siguiente proyecto esta desarrollado utilizando el Framework Symfony en su versión más reciente (4.1).
 
 ## Arquitectura:
