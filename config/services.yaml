@@ -48,3 +48,17 @@ services:
         class: App\Service\InventoryService
         public: true
         arguments: ['@service_container']
+
+    event.listener.inventory_out_of_stock:
+        class: App\EventListener\OutOfStockSubscriber
+        arguments:
+            - "@logger"
+        tags:
+            - { name: kernel.event_subscriber, channel: out_of_stock }
+
+    event.listener.inventory_expired_item:
+        class: App\EventListener\ExpiredItemSubscriber
+        arguments:
+            - "@logger"
+        tags:
+            - { name: kernel.event_subscriber, channel: expired_item }

@@ -249,9 +249,11 @@ class InventoryService implements BaseService
             );
 
             //Dispatchs outOfStock Event
-            $dispatcher = new EventDispatcher();
             $event = new OutOfStockEvent($inventory);
-            $dispatcher->dispatch(OutOfStockEvent::NAME, $event);
+            $this->getContainer()->get('event_dispatcher')->dispatch(
+                OutOfStockEvent::NAME,
+                $event
+            );
 
             // Response content.
             $response = [

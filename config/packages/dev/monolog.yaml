@@ -1,10 +1,11 @@
 monolog:
+    channels: ['expired_item', 'out_of_stock']
     handlers:
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
-            channels: ["!event"]
+            channels: ["!event", "!expired_item", "!out_of_stock"]
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:
@@ -17,3 +18,13 @@ monolog:
             type: console
             process_psr_3_messages: false
             channels: ["!event", "!doctrine", "!console"]
+        out_of_stock:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.out_of_stock.log"
+            level: debug
+            channels: ["out_of_stock"]
+        expired_item:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.expired_item.log"
+            level: debug
+            channels: ["expired_item"]

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fjugal.dev
- * Date: 19/11/2018
- * Time: 15:05
- */
 
 namespace App\Event;
 
@@ -39,7 +33,7 @@ class OutOfStockEvent extends Event
     /**
      * @return InventoryModel
      */
-    public function getInventory()
+    public function getInventory(): InventoryModel
     {
         return $this->inventory;
     }

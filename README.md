@@ -34,30 +34,36 @@ respectiva documentación.
 - Nos situamos en la raiz del proyecto y ejecutamos:
 
 ```
-~ composer install
+composer install
 ```
 
-y luego
+- Seguidamente, descargamos paquetes necesarios y habilitamos el entorno para las pruebas unitarias.
 
 ```
-~ npm install -g json-server
+./bin/phpunit
+```
+
+- y luego ejecutamos lo siguiente para instalar el fake api json server
+
+```
+npm install -g json-server
 ```
 
 - Posteriormente, en una terminal iniciamos el servidor para exponer un fake api para los datos.
 
 ```
-~ json-server --watch public/db.json
+json-server --watch public/db.json
 ```
 
 - Y en otra instancia de nuestra terminal, ejecutamos:
 
 ```
-~ php bin/console server:run
+php bin/console server:run
 ```
 
 Por defecto, nuestro fake api para los datos debe estar ejecutandose sobre la ruta: http://localhost:3000 y
 el servidor del API como tal del sistema de inventario en http:127.0.0.1:8000. Son las rutas configuradas en el
-fichero .env como parte de la configuración del sistema hecho en symfony.
+fichero ***.env*** como parte de la configuración del sistema hecho en symfony.
 
 ## Aclaratoria de Implementación
 Debido a los requerimientos del test, y el tiempo de implementación, veran en el código cosas que fueron 
@@ -66,4 +72,4 @@ misma manera obviamente. Un ejemplo de esto es el uso de un fake api server para
 
 ## Postman Collections
 He exportado mi colección de postman con los endpoints definidos para su fácil visualización. Para descargar la colección
-click
+[click aqui](goal-systems-api.postman_collection.json)

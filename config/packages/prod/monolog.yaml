@@ -7,6 +7,7 @@ monolog:
             excluded_404s:
                 # regex: exclude all 404 errors from the logs
                 - ^/
+            channels: ["!event", "!expired_item", "!out_of_stock"]
         nested:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
@@ -23,3 +24,13 @@ monolog:
             handler: deprecation
             max_level: info
             channels: ["php"]
+        out_of_stock:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.out_of_stock.log"
+            level: debug
+            channels: ["out_of_stock"]
+        expired_item:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.expired_item.log"
+            level: debug
+            channels: ["expired_item"]
