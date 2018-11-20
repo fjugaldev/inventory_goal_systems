@@ -10,7 +10,7 @@ El siguiente proyecto esta desarrollado utilizando el Framework Symfony en su ve
 1. [X] Implementar API del Sistema.
 1. [X] Implementar Events y Subscribers para Item sacado del Inventario y Item Caducado.
 1. [X] Implemntar LOG's cuando los subscribers se ejecuten para demostrar funcionalidad de eventos.
-1. [ ] Comentar estructura del código.
+1. [X] Comentar estructura del código.
 1. [X] Test Unitarios.
 1. [ ] Interfaz visual con CRUD de inventario 
 1. [ ] Test Funcionales.
@@ -110,6 +110,12 @@ misma manera obviamente. Un ejemplo de esto es el uso de un fake json api server
 Por otro lado, como se esta utilizando un fake json api server para proporcionar datos de prueba, cuando un se realiza una busqueda
 por ID y este no existe, arroja una excepción, la cual controlo, y muestro como error 500 pese a que en el message de la excepción
 indica que es un 404, refiriendose a que el fake json api server no ha encontrado el elemento.
+
+## Git Flow
+Utilicé un git flow básico para este test para al menos demostrar un poco el conocimniento en este tema. He creado la rama master con algunos cambios inicialmente, luego
+he creado la rama dev y sobre ella he estado haciendo los cambios. AL final subi todo a dev y desde github hice el pull request para hacer el merge contra master.
+
+El flujo de Git pudo ser mejor, como por ejemplo, cada feature en una rama nueva partiendo de dev, pero por temas de tiempo no lo tomé en cuenta.
 
 ## Postman Collections
 He exportado mi colección de postman con los endpoints definidos para su fácil visualización. Para descargar la colección
