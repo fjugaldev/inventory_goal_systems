@@ -3,15 +3,15 @@
     {
       "id": 1,
       "sku": "INV001",
-      "name": "json-server",
-      "type": "book",
-      "stock": 1003,
-      "expireAt": "2018-02-12T17:34:36+00:00"
+      "name": "Producto 001 Editado",
+      "type": "kindle",
+      "stock": "2998",
+      "expireAt": "2019-02-23T17:34:36+00:00"
     },
     {
       "id": 2,
       "sku": "INV002",
-      "name": "json-server",
+      "name": "Producto 002",
       "type": "book",
       "stock": 583,
       "expireAt": "2018-11-11T17:34:36+00:00"
@@ -19,7 +19,7 @@
     {
       "id": 3,
       "sku": "INV003",
-      "name": "json-server",
+      "name": "Producto 003",
       "type": "book",
       "stock": 640,
       "expireAt": "2018-11-27T17:34:36+00:00"
@@ -27,7 +27,7 @@
     {
       "id": 4,
       "sku": "INV004",
-      "name": "json-server",
+      "name": "Producto 004",
       "type": "kindle",
       "stock": 113,
       "expireAt": "2018-11-12T17:34:36+00:00"
@@ -35,7 +35,7 @@
     {
       "id": 5,
       "sku": "INV005",
-      "name": "json-server",
+      "name": "Producto 005",
       "type": "kindle",
       "stock": 9087,
       "expireAt": "2018-12-24T17:34:36+00:00"
@@ -43,7 +43,7 @@
     {
       "id": 6,
       "sku": "INV006",
-      "name": "json-server",
+      "name": "Producto 006",
       "type": "book",
       "stock": 188,
       "expireAt": "2018-12-17T17:34:36+00:00"
@@ -51,7 +51,7 @@
     {
       "id": 7,
       "sku": "INV007",
-      "name": "json-server",
+      "name": "Producto 007",
       "type": "kindle",
       "stock": 973,
       "expireAt": "2018-09-12T17:34:36+00:00"
@@ -59,7 +59,7 @@
     {
       "id": 8,
       "sku": "INV008",
-      "name": "json-server",
+      "name": "Producto 008",
       "type": "kindle",
       "stock": 482,
       "expireAt": "2018-01-20T17:34:36+00:00"
@@ -67,7 +67,7 @@
     {
       "id": 9,
       "sku": "INV009",
-      "name": "json-server",
+      "name": "Producto 009",
       "type": "book",
       "stock": 9982,
       "expireAt": "2018-06-10T17:34:36+00:00"
@@ -75,7 +75,7 @@
     {
       "id": 10,
       "sku": "INV0010",
-      "name": "json-server",
+      "name": "Producto 010",
       "type": "kindle",
       "stock": 17,
       "expireAt": "2018-11-20T17:34:36+00:00"
@@ -83,10 +83,18 @@
     {
       "id": 11,
       "sku": "INV011",
-      "name": "New Inventory",
+      "name": "Producto 011",
       "type": "book",
       "stock": 9663,
       "expireAt": "2019-01-19T17:34:36+00:00"
+    },
+    {
+      "id": "12",
+      "sku": "INV012",
+      "name": "Producto 012",
+      "type": "kindle",
+      "stock": "1987",
+      "expireAt": "2018-12-29T17:34:36+00:00"
     }
   ]
 }
