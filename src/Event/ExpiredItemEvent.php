@@ -17,23 +17,23 @@ class ExpiredItemEvent extends Event
     const NAME = "event.inventory.expired_item";
 
     /**
-     * @var array $item
+     * @var InventoryModel $item
      */
     protected $item;
 
     /**
      * ExpiredItemEvent constructor.
-     * @param array $item
+     * @param InventoryModel $item
      */
-    public function __construct(array $item)
+    public function __construct(InventoryModel $item)
     {
         $this->item = $item;
     }
 
     /**
-     * @return array
+     * @return InventoryModel
      */
-    public function getExpiredItem(): array
+    public function getExpiredItem(): InventoryModel
     {
         return $this->item;
     }

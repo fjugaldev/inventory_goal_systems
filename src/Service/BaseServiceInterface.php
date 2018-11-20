@@ -7,9 +7,9 @@ namespace App\Service;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Interface BaseService
+ * Interface BaseServiceInterface
  */
-interface BaseService
+interface BaseServiceInterface
 {
     /**
      * @param int $id

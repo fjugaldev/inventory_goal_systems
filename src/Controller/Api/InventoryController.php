@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class InventoryController extends FOSRestController
 {
     /**
+     * Gets all the items on the inventory.
      * @Rest\Get("/", name="list")
      *
      * @return JsonResponse
@@ -30,6 +31,7 @@ class InventoryController extends FOSRestController
     }
 
     /**
+     * Gets a single item fom the inventory based on the item ID.
      * @Rest\Get("/{id}", name="list_item")
      *
      * @param int $id
@@ -38,7 +40,7 @@ class InventoryController extends FOSRestController
      */
     public function listItemAction(int $id): JsonResponse
     {
-        // Lists the inventory.
+        // Get the item from the inventory.
         $response = $this->get('api.service.inventory_service')->get($id);
 
         // Returns a JsonResponse.
@@ -46,6 +48,7 @@ class InventoryController extends FOSRestController
     }
 
     /**
+     * Adds a new item to the inventory.
      * @Rest\Post("/", name="add_item")
      *
      * @param Request $request
@@ -58,37 +61,38 @@ class InventoryController extends FOSRestController
 
         // TODO: The ID must be passed as parameter cause we are using a fake api json server, in a real scenarie,
         // the ID must be autonumeric.
-        // Id parameter validator
+        // Id parameter validator.
         if (!$request->request->has('id')) {
             $missingParameters[] = 'id';
         }
 
-        // Sku parameter validator
+        // Sku parameter validator.
         if (!$request->request->has('sku')) {
             $missingParameters[] = 'sku';
         }
 
-        // Name parameter validator
+        // Name parameter validator.
         if (!$request->request->has('name')) {
             $missingParameters[] = 'name';
         }
 
-        // Type parameter validator
+        // Type parameter validator.
         if (!$request->request->has('type')) {
             $missingParameters[] = 'type';
         }
 
-        // Stock parameter validator
+        // Stock parameter validator.
         if (!$request->request->has('stock')) {
             $missingParameters[] = 'stock';
         }
 
-        // expireAt parameter validator
+        // expireAt parameter validator.
         if (!$request->request->has('expireAt')) {
             $missingParameters[] = 'expiretAt';
         }
 
         if (empty($missingParameters)) {
+            // Create a object of stdClass with the item properties and data.
             $parameters = new \stdClass();
             $parameters->id       = $request->request->get('id', 0);
             $parameters->sku      = $request->request->get('sku', '');
@@ -97,6 +101,7 @@ class InventoryController extends FOSRestController
             $parameters->stock    = $request->request->get('stock', 0);
             $parameters->expireAt = $request->request->get('expireAt', '1900-01-01T00:00:00+00:00');
 
+            // Send the request to the API.
             $response = $this->get('api.service.inventory_service')->add($parameters);
 
         } else {
@@ -109,11 +114,13 @@ class InventoryController extends FOSRestController
             ];
         }
 
+        // Return a JsonResponse.
         return new JsonResponse($response, $response['status']);
     }
 
     /**
-     * @Rest\Put("/{id}", name="add_item")
+     * Edits a item from the inventory.
+     * @Rest\Put("/{id}", name="edit_item")
      *
      * @param int     $id
      * @param Request $request
@@ -126,37 +133,38 @@ class InventoryController extends FOSRestController
 
         // TODO: The ID must be passed as parameter cause we are using a fake api json server, in a real scenarie,
         // the ID must be autonumeric.
-        // Id parameter validator
+        // Id parameter validator.
         if (!$request->request->has('id')) {
             $missingParameters[] = 'id';
         }
 
-        // Sku parameter validator
+        // Sku parameter validator.
         if (!$request->request->has('sku')) {
             $missingParameters[] = 'sku';
         }
 
-        // Name parameter validator
+        // Name parameter validator.
         if (!$request->request->has('name')) {
             $missingParameters[] = 'name';
         }
 
-        // Type parameter validator
+        // Type parameter validator.
         if (!$request->request->has('type')) {
             $missingParameters[] = 'type';
         }
 
-        // Stock parameter validator
+        // Stock parameter validator.
         if (!$request->request->has('stock')) {
             $missingParameters[] = 'stock';
         }
 
-        // expireAt parameter validator
+        // expireAt parameter validator.
         if (!$request->request->has('expireAt')) {
             $missingParameters[] = 'expiretAt';
         }
 
         if (empty($missingParameters)) {
+            // Create a object of stdClass with the item properties and data.
             $parameters = new \stdClass();
             $parameters->id       = $request->request->get('id', 0);
             $parameters->sku      = $request->request->get('sku', '');
@@ -165,6 +173,7 @@ class InventoryController extends FOSRestController
             $parameters->stock    = $request->request->get('stock', 0);
             $parameters->expireAt = $request->request->get('expireAt', '1900-01-01T00:00:00+00:00');
 
+            // Sends edit request to the API.
             $response = $this->get('api.service.inventory_service')->edit($id, $parameters);
 
         } else {
@@ -177,10 +186,12 @@ class InventoryController extends FOSRestController
             ];
         }
 
+        // Returns a JsonResponse.
         return new JsonResponse($response, $response['status']);
     }
 
     /**
+     * Extracts (out of stock, set stock to 0) a item from the inventory based on the item name.
      * @Rest\Delete("/{name}", name="remove_item")
      *
      * @param string $name
@@ -189,8 +200,10 @@ class InventoryController extends FOSRestController
      */
     public function removeAction(string $name): JsonResponse
     {
+        // Send the remove request to the API.
         $response = $this->get('api.service.inventory_service')->remove($name);
 
+        // Returns a JsonResponse.
         return new JsonResponse($response, $response['status']);
     }
 }

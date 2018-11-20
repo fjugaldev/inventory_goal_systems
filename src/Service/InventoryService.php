@@ -6,12 +6,11 @@ use App\Event\OutOfStockEvent;
 use App\Model\InventoryModel;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * Class InventoryService
  */
-class InventoryService implements BaseService
+class InventoryService implements BaseServiceInterface
 {
     /** @var ContainerInterface */
     protected $container;
@@ -67,7 +66,7 @@ class InventoryService implements BaseService
             // Error content
             $response = [
                 'status' => HttpService::STATUS_500,
-                'error'  => $e->getMessage(),
+                'error'  => json_decode($e->getMessage()),
             ];
         }
 
@@ -166,6 +165,7 @@ class InventoryService implements BaseService
             ];
         }
 
+        // Returns the response content.
         return $response;
     }
 
@@ -208,6 +208,7 @@ class InventoryService implements BaseService
             ];
         }
 
+        // Returns the response content.
         return $response;
     }
 

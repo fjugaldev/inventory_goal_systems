@@ -4,6 +4,7 @@ namespace App\EventListener;
 
 
 use App\Event\OutOfStockEvent;
+use App\Model\InventoryModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -51,11 +52,12 @@ class OutOfStockSubscriber implements EventSubscriberInterface
      */
     public function onOutOfStockEvent(OutOfStockEvent $outOfStockEvent)
     {
+        /** @var InventoryModel $inventoryItem */
         $inventoryItem = $outOfStockEvent->getInventory();
-        $this->getLogger()->info('******************************************');
-        $this->getLogger()->info("   ID: {$inventoryItem['id']}");
-        $this->getLogger()->info(" NAME: {$inventoryItem['name']}");
-        $this->getLogger()->info("STOCK: {$inventoryItem['stock']}");
-        $this->getLogger()->info('******************************************');
+        $this->getLogger()->info('****************** OUT OF STOCK *******************');
+        $this->getLogger()->info("        ID: {$inventoryItem->getId()}");
+        $this->getLogger()->info("      NAME: {$inventoryItem->getName()}");
+        $this->getLogger()->info("     STOCK: {$inventoryItem->getExpireAt()}");
+        $this->getLogger()->info('***************************************************');
     }
 }

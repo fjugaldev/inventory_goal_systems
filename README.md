@@ -11,7 +11,10 @@ El siguiente proyecto esta desarrollado utilizando el Framework Symfony en su ve
 1. [X] Implementar Events y Subscribers para Item sacado del Inventario y Item Caducado.
 1. [X] Implemntar LOG's cuando los subscribers se ejecuten para demostrar funcionalidad de eventos.
 1. [ ] Comentar estructura del código.
-1. [ ] Test Unitarios.
+1. [X] Test Unitarios.
+1. [ ] Interfaz visual con CRUD de inventario 
+1. [ ] Test Funcionales.
+
 
 ## Arquitectura:
 Para la arquitectura, por temas de tiempo, utilizamos la por defecto por symfony la cual sigue el patrón MVC, yo lo llamo
@@ -37,8 +40,13 @@ JWT por su nivel de seguridad y la practicidad de implementación.
 - Por temas de tiempo, pude haber validado mejor los datos de entrada y salida. Symfony ayuda mucho a esto con los componentes
 de Validation y Validation Constraints.
 - Me faltó la documentación del API, es decir, utilizar una librería que se integra con Symfony y permite mediente anotaciones
-documentar cada endpoint. Con esto sería posible exponer una interfaz web para poder tener acceso a los endpoints disponible y su
+documentar cada endpoint. Con esto sería posible exponer una interfaz web para poder tener acceso a los endpoints disponibles y su
 respectiva documentación.
+
+## Requerimientos de Ejecución:
+- Tener instalado Composer
+- Tener instalado Node con su gestor de paquetes NPM
+- PHP >= 7.1
 
 ## Instrucciones de Configuración
 - Nos situamos en la raiz del proyecto y ejecutamos:
@@ -75,10 +83,33 @@ Por defecto, nuestro fake api para los datos debe estar ejecutandose sobre la ru
 el servidor del API como tal del sistema de inventario en http:127.0.0.1:8000. Son las rutas configuradas en el
 fichero ***.env*** como parte de la configuración del sistema hecho en symfony.
 
+## Pruebas Unitarias (PHPUnit)
+Se realizaron pruebas unitarias a los endpoints definidos para el inventario pero:
+- Quedo pendiente por falta de tiempo hacer pruebas unitarias y funcionales a las clases definidas.
+- Por temas de tiempo, cuando se ejecuta el test unitario, se actualiza el fichero public/db.json, por ende si se desea realizar varias veces el test, hay que borrar
+el item de inventario cuyo id es 999.
+
+Para ejecutar las pruebas unitarias se debe:
+
+- Situarse en la raiz del proyecto.
+- Ejecutar el siguiente comando:
+```
+./bin/phpunit
+```
+
+## Interfaz Gráfica:
+Por temas de tiempo me hubiese gustado hacer una interfaz gráfica para implementar un CRUD y poder consumir los endpoints definidos. Hubiese podido utilizar
+una interfaz sencilla utilizando netamente los componentes de symfony tanto para backend como para frontend, o pudiese haber usado por ejemplo Vue.js, en combinación con
+Bower o NPM (Gestion de librerías), Gulp (Automatización de procesos), Webpack encore (Compilador o empaquetador de módulos, se integra nativamente con el framework en la version 4 de Symfony)
+
 ## Aclaratoria de Implementación
 Debido a los requerimientos del test, y el tiempo de implementación, veran en el código cosas que fueron 
 implementadas a posta en pro de hacer el test funcional pero que en un entorno real no se llevarían a cabo de la 
-misma manera obviamente. Un ejemplo de esto es el uso de un fake api server para el almacenamiento y consulta de los datos.
+misma manera obviamente. Un ejemplo de esto es el uso de un fake json api server para el almacenamiento y consulta de los datos.
+
+Por otro lado, como se esta utilizando un fake json api server para proporcionar datos de prueba, cuando un se realiza una busqueda
+por ID y este no existe, arroja una excepción, la cual controlo, y muestro como error 500 pese a que en el message de la excepción
+indica que es un 404, refiriendose a que el fake json api server no ha encontrado el elemento.
 
 ## Postman Collections
 He exportado mi colección de postman con los endpoints definidos para su fácil visualización. Para descargar la colección

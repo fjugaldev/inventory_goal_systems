@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Event\ExpiredItemEvent;
+use App\Model\InventoryModel;
 use PHPUnit\Runner\Exception;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -55,8 +56,15 @@ class CheckExpiredItemsCommand extends ContainerAwareCommand
                     $today = new \DateTime();
 
                     if ($expireAt < $today) {
+                        $expiredItem = new InventoryModel();
+                        $expiredItem->setId($item['id']);
+                        $expiredItem->setName($item['name']);
+                        $expiredItem->setSku($item['sku']);
+                        $expiredItem->setType($item['type']);
+                        $expiredItem->setStock($item['stock']);
+                        $expiredItem->setExpireAt($item['expireAt']);
                         //Dispatchs ExpiredItemEvent
-                        $event = new ExpiredItemEvent($item);
+                        $event = new ExpiredItemEvent($expiredItem);
                         $this->getContainer()->get('event_dispatcher')->dispatch(
                             ExpiredItemEvent::NAME,
                             $event

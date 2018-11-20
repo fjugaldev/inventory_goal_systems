@@ -4,6 +4,7 @@ namespace App\EventListener;
 
 
 use App\Event\ExpiredItemEvent;
+use App\Model\InventoryModel;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -52,11 +53,12 @@ class ExpiredItemSubscriber implements EventSubscriberInterface
      */
     public function onExpiredItemEvent(ExpiredItemEvent $expiredItemEvent)
     {
+        /** @var InventoryModel $expiredItem */
         $expiredItem = $expiredItemEvent->getExpiredItem();
-        $this->getLogger()->info('******************************************');
-        $this->getLogger()->info("        ID: {$expiredItem['id']}");
-        $this->getLogger()->info("      NAME: {$expiredItem['name']}");
-        $this->getLogger()->info("EXPIRED AT: {$expiredItem['expireAt']}");
-        $this->getLogger()->info('******************************************');
+        $this->getLogger()->info('******************** EXPIRED ITEM *********************');
+        $this->getLogger()->info("        ID: {$expiredItem->getId()}");
+        $this->getLogger()->info("      NAME: {$expiredItem->getName()}");
+        $this->getLogger()->info("EXPIRED AT: {$expiredItem->getExpireAt()}");
+        $this->getLogger()->info('*******************************************************');
     }
 }

@@ -52,13 +52,13 @@ services:
     event.listener.inventory_out_of_stock:
         class: App\EventListener\OutOfStockSubscriber
         arguments:
-            - "@logger"
+            - "@monolog.logger.out_of_stock"
         tags:
-            - { name: kernel.event_subscriber, channel: out_of_stock }
+            - { name: kernel.event_subscriber }
 
     event.listener.inventory_expired_item:
         class: App\EventListener\ExpiredItemSubscriber
         arguments:
-            - "@logger"
+            - "@monolog.logger.expired_item"
         tags:
-            - { name: kernel.event_subscriber, channel: expired_item }
+            - { name: kernel.event_subscriber }

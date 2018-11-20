@@ -20,11 +20,11 @@ monolog:
             channels: ["!event", "!doctrine", "!console"]
         out_of_stock:
             type: stream
-            path: "%kernel.logs_dir%/%kernel.environment%.out_of_stock.log"
+            path: "%kernel.logs_dir%/out_of_stock.%kernel.environment%.log"
             level: debug
-            channels: ["out_of_stock"]
+            channels: ['out_of_stock']
         expired_item:
             type: stream
-            path: "%kernel.logs_dir%/%kernel.environment%.expired_item.log"
+            path: "%kernel.logs_dir%/expired_item.%kernel.environment%.log"
             level: debug
-            channels: ["expired_item"]
+            channels: ['expired_item']
