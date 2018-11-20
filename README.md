@@ -21,7 +21,7 @@ Para la arquitectura, por temas de tiempo, utilizamos la por defecto por symfony
 ***MVC Plus*** ya que gracias a como esta estructurado el framework, y las buenas prácticas recomendadas por
 sus desarrolladores, nos permite mantener una estrutura de código limpia, sólida, flexible y sobre todo escalable.
 
-Aún cuando por temas de tiempo no se pudo hacer, me hubiese gustado implementar la "***Arquitectura Cebolla***" ***(Onion Architecture)***, ya
+Aún cuando por temas de tiempo no se pudo hacer, me hubiese gustado implementar la "***Arquitectura Cebolla***" (***Onion Architecture***), ya
 que de cierta manera nos permite añadir más capas a la estructura, distribuyendolo mejor para garantizar entre otras cosas que el
 código sea testeable, independiente del framework y con una lógica de negocio mas robústa. Esto motivado a que hoy este test esta desarrollado usando
 Symfony por ser un framework robusto y el cual considero que esta marcando tendencia entre todos los frameworks de PHP, pero que si a futuro
